@@ -14,7 +14,6 @@ class productsModel extends Model
         'nama_produk',
         'gambar',
         'harga',
-        'tersedia',
         'deskripsi'
     ];
     protected $table = 'products';

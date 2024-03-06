@@ -21,13 +21,18 @@ class usersModel extends Model
     ];
     protected $table = 'users';
 
-    public function employee_data(): HasOne
+    // public function employee_data(): HasOne
+    // {
+    //     return $this->hasOne(employeesModel::class, 'id_employee', 'id');
+    // }
+
+    public function role_data()
     {
-        return $this->hasOne(employeesModel::class, 'id_employee', 'id');
+        return $this->belongsTo(roleModel::class, 'id_role', 'id');
     }
 
-    public function role_data(): HasMany
+    public function employee_data()
     {
-        return $this->hasMany(roleModel::class, 'id_role', 'id');
+        return $this->belongsTo(employeesModel::class, 'id_employee', 'id');
     }
 }

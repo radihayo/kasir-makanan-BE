@@ -17,7 +17,6 @@ class transactionsModel extends Model
         'tanggal_transaksi',
         'waktu_transaksi',
         'pegawai_melayani',
-        'status',
         'keterangan'
     ];
     protected $table = 'transactions';

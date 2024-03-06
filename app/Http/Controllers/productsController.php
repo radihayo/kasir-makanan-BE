@@ -7,6 +7,8 @@ use App\Models\productsModel;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Resources\productsResource;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\productStoreRequest;
+use App\Http\Requests\productUpdateRequest;
 use App\Http\Resources\productDetailResource;
 
 
@@ -22,35 +24,27 @@ class productsController extends Controller
         return new productDetailResource($dataDetailProduct);
     }
 
-    public function store(Request $request){
-        $validated = $request->validate([
-            'kode_produk' => 'required|unique:products,kode_produk',
-            'nama_produk' => 'required|max:50',
-            // 'gambar'=> 'required',
-            'harga' => 'required|numeric',
-            'tersedia' => 'required',
-            'deskripsi' => 'required'
-        ]);
+    public function store(productStoreRequest $request){
         if($request->file){
             $fileName = $request->kode_produk.'.jpg';
             // $imageFile = $request->file;
             // $imageFile->resize(100, 100, function    ($constraint) {
             //     $constraint->aspectRatio();
             // });
-            Storage::putFileAs('public/image',$request->file,$fileName);
+            Storage::putFileAs('image',$request->file,$fileName);
         };
         $request['gambar'] = $fileName;
         $store = productsModel::create($request->all());
         return new productDetailResource($store);
     }
 
-    public function update(Request $request, $id){
-        $validated = $request->validate([
-            'kode_produk' => 'required|unique:products,kode_produk,'. $id,
-            'nama_produk' => 'required|max:50',
-            'harga' => 'required|numeric',
-            'tersedia' => 'required'
-        ]);
+    public function update(productUpdateRequest $request, $id){
+        // $validated = $request->validate([
+        //     'kode_produk' => 'required|unique:products,kode_produk,'. $id,
+        //     'nama_produk' => 'required|max:50',
+        //     'harga' => 'required|numeric',
+        //     'tersedia' => 'required'
+        // ]);
         $update = productsModel::findOrFail($id);
         $update->update($request->all());
         return new productDetailResource($update);
@@ -59,7 +53,7 @@ class productsController extends Controller
     public function destroy($id)
     {
         $data_product = productsModel::where('id', $id)->firstOrFail();
-        Storage::delete('public/image/'.$data_product->gambar);
+        Storage::delete('image/'.$data_product->gambar);
         $destroy = productsModel::findOrFail($id);
         $destroy->delete();
         return new productDetailResource($destroy);

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class employeeStoreRequest extends FormRequest
+class productStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,24 +22,21 @@ class employeeStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama' => 'required|max:50|unique:employees,nama',
-            'email' => 'required|unique:employees,email',
-            'jenis_kelamin' => 'required',
-            'tempat_lahir' => 'required',
-            'tanggal_lahir' => 'required',
-            'agama' => 'required',
-            'no_telp' => 'required|size:12',
-            'alamat' => 'required|max:50'
+            'kode_produk' => 'required|size:5|unique:products,kode_produk',
+            'nama_produk' => 'required|max:50',
+            'harga' => 'required',
+            'deskripsi' => 'required',
+            'file' => 'required'
         ];
     }
 
-    public function messages(): array
+    public function messages():array
     {
         return[
             'required' => 'Inputan Tidak Boleh Kosong',
             'unique' => 'Data Sudah Ada',
-            'nama.max' => 'Panjang Maksimal 50',
-            'no_telp.size' => 'Panjang Maksimal 12'
+            'kode_produk.size' => 'Panjang Harus 5',
+            'nama_produk.max' => 'Panjang Maksimal 50',
         ];
     }
 }

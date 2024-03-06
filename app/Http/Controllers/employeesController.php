@@ -18,7 +18,20 @@ class employeesController extends Controller
 {
     public function show(){
         $dataEmployees = employeesModel::all();
-        return employeesResource::collection($dataEmployees);
+        // $data = employeesModel::with('data_users.role_data')
+        // ->join('')
+        // ->get();
+        $data = employeesModel::with('data_users.role_data')
+        ->join('users','users.id_employee','=','employees.id')
+        ->join('role','role.id','=','users.id_role')
+        ->where('role','=','user')
+        ->select('employees.*')
+        // ->sortBy('nama','asc')
+        ->get();
+        return employeesResource::collection($data);
+        // return response()->json([
+        //     'data'=>$data
+        // ]);
     }
 
     public function detail($id){

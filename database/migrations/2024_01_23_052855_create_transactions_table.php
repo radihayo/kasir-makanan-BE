@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('tanggal_transaksi');
             $table->time('waktu_transaksi');
             $table->string('pegawai_melayani', 50);
+            $table->string('keterangan', 100);
         });
     }
 

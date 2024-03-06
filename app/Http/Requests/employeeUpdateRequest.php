@@ -32,4 +32,14 @@ class employeeUpdateRequest extends FormRequest
             'alamat' => 'required|max:50'
         ];
     }
+
+    public function messages(): array
+    {
+        return[
+            'required' => 'Inputan Tidak Boleh Kosong',
+            'unique' => 'Data Sudah Ada',
+            'nama.max' => 'Panjang Maksimal 50',
+            'no_telp.size' => 'Panjang Maksimal 12'
+        ];
+    }
 }

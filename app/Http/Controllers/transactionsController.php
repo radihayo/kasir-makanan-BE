@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Http\Request;
 use App\Models\transactionsModel;
 use App\Http\Resources\transactionsResource;
+use App\Http\Requests\transactionStoreRequest;
 use App\Http\Resources\transactionDetailResource;
 
 class transactionsController extends Controller
@@ -29,15 +30,15 @@ class transactionsController extends Controller
         }
     }
 
-    public function store(Request $request){
-        $validated = $request->validate([
-            'kode_produk' => 'required',
-            'jumlah' => 'required',
-            'tanggal_transaksi' => 'required',
-            'waktu_transaksi' => 'required',
-            'pegawai_melayani' => 'required',
-            'status' => 'required'
-        ]);
+    public function store(transactionStoreRequest $request){
+        // $validated = $request->validate([
+        //     'kode_produk' => 'required',
+        //     'jumlah' => 'required',
+        //     'tanggal_transaksi' => 'required',
+        //     'waktu_transaksi' => 'required',
+        //     'pegawai_melayani' => 'required'
+        //     'status' => 'required'
+        // ]);
         $store = transactionsModel::create($request->all());
         return new transactionDetailResource($store);
     }

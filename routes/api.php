@@ -21,15 +21,7 @@ use App\Http\Controllers\transactionsController;
 Route::post('/login', [authController::class, 'login']);
 Route::get('/logout', [authController::class,'logout'])->middleware(['auth:sanctum']);
 
-Route::prefix('/products')->group(function () {
-    Route::get('/show',[productsController::class,'show']);
-    Route::get('/show/{id}', [productsController::class,'detail']);
-    Route::post('/store', [productsController::class,'store']);
-    Route::put('/update/{id}',[productsController::class,'update']);
-    Route::delete('/destroy/{id}', [productsController::class,'destroy']);
-});
-
-// Route::middleware(['auth:sanctum'])->prefix('/products')->group(function () {
+// Route::prefix('/products')->group(function () {
 //     Route::get('/show',[productsController::class,'show']);
 //     Route::get('/show/{id}', [productsController::class,'detail']);
 //     Route::post('/store', [productsController::class,'store']);
@@ -37,7 +29,15 @@ Route::prefix('/products')->group(function () {
 //     Route::delete('/destroy/{id}', [productsController::class,'destroy']);
 // });
 
-Route::prefix('/employees')->group(function () {
+Route::middleware(['auth:sanctum'])->prefix('/products')->group(function () {
+    Route::get('/show',[productsController::class,'show']);
+    Route::get('/show/{id}', [productsController::class,'detail']);
+    Route::post('/store', [productsController::class,'store']);
+    Route::put('/update/{id}',[productsController::class,'update']);
+    Route::delete('/destroy/{id}', [productsController::class,'destroy']);
+});
+
+Route::middleware(['auth:sanctum'])->prefix('/employees')->group(function () {
     Route::get('/show',[employeesController::class,'show']);
     Route::get('/show/{id}', [employeesController::class,'detail']);
     Route::post('/store', [employeesController::class,'store']);
@@ -45,7 +45,7 @@ Route::prefix('/employees')->group(function () {
     Route::delete('/destroy/{id}', [employeesController::class,'destroy']);
 });
 
-Route::prefix('/transactions')->group(function () {
+Route::middleware(['auth:sanctum'])->prefix('/transactions')->group(function () {
     Route::get('/show',[transactionsController::class,'show']);
     Route::get('/show/{id}', [transactionsController::class,'detail']);
     Route::post('/store', [transactionsController::class,'store']);

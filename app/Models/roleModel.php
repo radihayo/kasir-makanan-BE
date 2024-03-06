@@ -10,6 +10,7 @@ class roleModel extends Model
 {
     use HasFactory, UUIDAsPrimaryKey;
     protected $fillable = [
+        'id',
         'role'
     ];
     protected $table = 'role';

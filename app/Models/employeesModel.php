@@ -21,4 +21,9 @@ class employeesModel extends Model
         'alamat'
     ];
     protected $table = 'employees';
+
+    public function data_users()
+    {
+        return $this->hasOne(usersModel::class, 'id_employee', 'id');
+    }
 }

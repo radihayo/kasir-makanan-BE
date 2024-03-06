@@ -15,9 +15,9 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('kode_produk', 5)->unique();
             $table->string('nama_produk', 50);
-            $table->string('gambar')->nullable();
+            $table->string('gambar');
             $table->decimal('harga', 11, 2);
-            $table->enum('tersedia', ['0', '1']);
+            $table->string('deskripsi', 100);
             $table->timestamps();
         });
     }
